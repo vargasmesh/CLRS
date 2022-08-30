@@ -14,26 +14,29 @@
   [array i j]
   (assoc array i (array j) j (array i)))
 
-(defn- max-heapify [current-idx end-idx heap]
+(defn- down [current-idx end-idx heap less]
   (let [l (left current-idx)
         r (right current-idx)
         largest (-> current-idx
                     (#(if (and (<= l end-idx)
-                               (> (get heap l) (get heap %)))
+                               (less (get heap l) (get heap %)))
                         l %))
                     (#(if (and (<= r end-idx)
-                               (> (get heap r) (get heap %)))
+                               (less (get heap r) (get heap %)))
                         r %)))]
     (if (not= current-idx largest)
-      (recur largest end-idx (swap heap current-idx largest))
+      (recur largest end-idx (swap heap current-idx largest) less)
       heap)))
 
-(defn max-heap [array]
+(defn max-heap [t1 t2]
+  (> t1 t2))
+
+(defn heapify [array less]
   (let [size (count array)
         last-index (dec size)
         middle (quot size 2)]
     (loop [i middle array array]
       (if (>= i 0)
-        (recur (dec i) (max-heapify i last-index array))
+        (recur (dec i) (down i last-index array less))
         array))))
 

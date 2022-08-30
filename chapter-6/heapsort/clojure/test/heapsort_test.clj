@@ -1,6 +1,6 @@
 (ns heapsort-test
   (:require [clojure.test :refer [deftest is]])
-  (:require [heapsort :refer [max-heap]]))
+  (:require [heapsort :refer [heapify max-heap]]))
 
 (deftest test-max-heap
-  (is (= (max-heap [1 5 3 4 10]) [10 5 3 4 1])))
+  (is (= (heapify [1 5 3 4 10] max-heap) [10 5 3 4 1])))
