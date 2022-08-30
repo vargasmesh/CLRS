@@ -9,6 +9,11 @@
 (defn- right [index]
   (inc (* index 2)))
 
+(defn- swap
+  "Swap the elements of the i and j indexes"
+  [array i j]
+  (assoc array i (array j) j (array i)))
+
 (defn- max-heapify [current-idx end-idx heap]
   (let [l (left current-idx)
         r (right current-idx)
@@ -20,7 +25,7 @@
                                (> (get heap r) (get heap %)))
                         r %)))]
     (if (not= current-idx largest)
-      (recur largest end-idx (assoc heap largest (heap current-idx) current-idx (heap largest)))
+      (recur largest end-idx (swap heap current-idx largest))
       heap)))
 
 (defn max-heap [array]
