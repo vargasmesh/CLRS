@@ -9,26 +9,26 @@
 (defn- right [index]
   (inc (* index 2)))
 
-(defn- max-heapify [array idx]
-  (let [l (left idx)
-        r (right idx)
-        size (count array)
-        largest (-> idx
-                    (#(if (and (< l size)
-                               (> (get array l) (get array %)))
+(defn- max-heapify [current-idx end-idx heap]
+  (let [l (left current-idx)
+        r (right current-idx)
+        largest (-> current-idx
+                    (#(if (and (<= l end-idx)
+                               (> (get heap l) (get heap %)))
                         l %))
-                    (#(if (and (< r size)
-                               (> (get array r) (get array %)))
+                    (#(if (and (<= r end-idx)
+                               (> (get heap r) (get heap %)))
                         r %)))]
-    (if (not= idx largest)
-      (recur (assoc array largest (array idx) idx (array largest)) largest)
-      array)))
+    (if (not= current-idx largest)
+      (recur largest end-idx (assoc heap largest (heap current-idx) current-idx (heap largest)))
+      heap)))
 
 (defn max-heap [array]
   (let [size (count array)
+        last-index (dec size)
         middle (quot size 2)]
     (loop [i middle array array]
       (if (>= i 0)
-        (recur (dec i) (max-heapify array i))
+        (recur (dec i) (max-heapify i last-index array))
         array))))
 
