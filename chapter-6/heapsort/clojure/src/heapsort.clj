@@ -1,13 +1,13 @@
 (ns heapsort)
 
-(defn- parent [index]
-  (quot index 2))
+(defn- parent [idx]
+  (quot idx 2))
 
-(defn- left [index]
-  (* index 2))
+(defn- left [idx]
+  (* idx 2))
 
-(defn- right [index]
-  (inc (* index 2)))
+(defn- right [idx]
+  (inc (* idx 2)))
 
 (defn- swap
   "Swap the elements of the i and j indexes"
