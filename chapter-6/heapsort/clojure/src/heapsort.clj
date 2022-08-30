@@ -40,3 +40,10 @@
         (recur (dec i) (down i last-index array less))
         array))))
 
+(defn heapsort [array]
+  (let [heap (heapify array max-heap)
+        end-idx (dec (count heap))]
+    (loop [i end-idx heap-end-idx (dec end-idx) heap heap]
+      (if (> i 0)
+        (recur (dec i) (dec heap-end-idx) (down 0 heap-end-idx (swap heap 0 i) max-heap))
+        heap))))
