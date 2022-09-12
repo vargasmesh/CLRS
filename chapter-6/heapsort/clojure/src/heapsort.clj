@@ -17,13 +17,13 @@
 (defn- down [current-idx end-idx heap less]
   (let [l (left current-idx)
         r (right current-idx)
-        largest (-> current-idx
-                    (#(if (and (<= l end-idx)
-                               (less (get heap l) (get heap %)))
-                        l %))
-                    (#(if (and (<= r end-idx)
-                               (less (get heap r) (get heap %)))
-                        r %)))]
+        largest (as-> current-idx $
+                  (if (and (<= l end-idx)
+                           (less (get heap l) (get heap $)))
+                    l $)
+                  (if (and (<= r end-idx)
+                           (less (get heap r) (get heap $)))
+                    r $))]
     (if (not= current-idx largest)
       (recur largest end-idx (swap heap current-idx largest) less)
       heap)))
