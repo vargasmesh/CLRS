@@ -2,14 +2,8 @@
   (:require [clojure.test :refer :all])
   (:require [insertion-sort :refer [insertion-sort]]))
 
-(deftest empty-array
-  (is (= (insertion-sort []) [])))
-
-(deftest single-item
-  (is (= (insertion-sort [1]) [1])))
-
-(deftest already-sorted
-  (is (= (insertion-sort [1 2 3]) [1 2 3])))
-
-(deftest unsorted-1
-  (is (= (insertion-sort [3 2 1]) [1 2 3])))
+(deftest insertion-sort-test
+  (is (= (insertion-sort []) []))
+  (is (= (insertion-sort [1 2 3]) [1 2 3]))
+  (is (= (insertion-sort [3 2 1]) [1 2 3]))
+  (is (= (insertion-sort (shuffle (range 10))) [0 1 2 3 4 5 6 7 8 9])))

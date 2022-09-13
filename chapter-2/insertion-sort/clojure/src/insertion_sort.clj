@@ -1,13 +1,16 @@
 (ns insertion-sort)
 
+(defn- swap
+  "Swap the elements of the i and j indexes"
+  [array i j]
+  (assoc array i (array j) j (array i)))
+
 (defn- sort-item [array idx]
-  (let [current-value (get array idx)]
-    (loop [i idx array array]
-      (let [left-value (get array (dec i))]
-        (if (and (pos? i)
-                 (> left-value current-value))
-          (recur (dec i) (assoc array i left-value))
-          (assoc array i current-value))))))
+  (loop [j idx array array]
+    (if (and (pos? j)
+             (< (get array j) (get array (dec j))))
+      (recur (dec j) (swap array j (dec j)))
+      array)))
 
 (defn insertion-sort [array]
   (let [size (count array)]
