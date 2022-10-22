@@ -28,6 +28,8 @@ def _merge(array, p, q, r):
         j += 1
         k += 1
 
+    return array  # to track on hunter
+
 
 def merge_sort(array: list[int], p: int, r: int):
     if p >= r:
